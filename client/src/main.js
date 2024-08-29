@@ -50,11 +50,11 @@ async function loadTasks() {
                     <p class="text-gray-700">${task.description}</p>
                     <p class="text-sm ${task.isComplete ? 'line-through text-green-600' : 'text-red-600'}">${task.isComplete ? 'Completada' : 'Pendiente'}</p>
                 </div>
-                <div class="flex space-x-4 mt-4">
-                   <button onclick="updateTask(${task.id}, '${task.title}', '${task.description}', ${task.isComplete})" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">Editar</button>
-                   <button onclick="deleteTask(${task.id})" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 transition duration-150 ease-in-out">Eliminar</button>
+                <div class="flex space-x-4 mt-4 justify-end">
+                <button onclick="updateTask(${task.id}, '${task.title}', '${task.description}', ${task.isComplete})" class="bg-blue-300 text-black px-2 py-1 rounded">Editar</button>
+                <button onclick="deleteTask(${task.id})" class="bg-red-600 text-black px-2 py-1 rounded">Eliminar</button>
                 </div>
-            `;
+`;
             taskList.appendChild(li);
         });
     } catch (error) {
