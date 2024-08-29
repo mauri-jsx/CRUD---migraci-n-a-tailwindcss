@@ -1,6 +1,7 @@
-import './style.css';
+import "./style.css";
 import Swal from 'sweetalert2';
 
+// Función para cargar las tareas desde el servidor
 document.addEventListener('DOMContentLoaded', loadTasks);
 
 document.getElementById('task-form').addEventListener('submit', async (e) => {
@@ -42,25 +43,36 @@ async function loadTasks() {
 
         tasks.forEach(task => {
             const li = document.createElement('li');
-            li.className = 'bg-white p-6 rounded-lg shadow-lg flex flex-col space-y-4';
+            li.className = 'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-4 rounded-md shadow-md flex flex-col space-y-4';
 
             li.innerHTML = `
                 <div class="space-y-2">
-                    <h3 class="text-2xl font-semibold text-teal-600">${task.title}</h3>
-                    <p class="text-gray-700">${task.description}</p>
+                    <h3 class="text-2xl font-semibold text-teal-600 dark:text-teal-400">${task.title}</h3>
+                    <p class="text-gray-700 dark:text-gray-300">${task.description}</p>
                     <p class="text-sm ${task.isComplete ? 'line-through text-green-600' : 'text-red-600'}">${task.isComplete ? 'Completada' : 'Pendiente'}</p>
                 </div>
                 <div class="flex space-x-4 mt-4 justify-end">
-                <button onclick="updateTask(${task.id}, '${task.title}', '${task.description}', ${task.isComplete})" class="bg-blue-300 text-black px-2 py-1 rounded">Editar</button>
-                <button onclick="deleteTask(${task.id})" class="bg-red-600 text-black px-2 py-1 rounded">Eliminar</button>
+                    <button onclick="updateTask(${task.id}, '${task.title}', '${task.description}', ${task.isComplete})" class="bg-blue-300 text-black px-3 py-1 rounded-md">Editar</button>
+                    <button onclick="deleteTask(${task.id})" class="bg-red-600 text-white px-3 py-1 rounded-md">Eliminar</button>
                 </div>
-`;
+            `;
             taskList.appendChild(li);
         });
     } catch (error) {
         console.error('Error cargando las tareas:', error);
     }
 }
+
+window.toggleComplete = async function(id, newStatus) {
+    await fetch(`http://localhost:4000/task/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ isComplete: newStatus })
+    });
+    loadTasks();
+};
 
 window.updateTask = async function(id, currentTitle, currentDescription, currentIsComplete) {
     const { value: formValues } = await Swal.fire({
