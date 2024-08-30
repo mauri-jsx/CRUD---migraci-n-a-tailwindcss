@@ -7,8 +7,7 @@ Este proyecto es una aplicación de gestión de tareas que permite a los usuario
 - **Añadir tareas**: Agrega tareas con un título y una descripción.
 - **Editar tareas**: Modifica el título y la descripción de una tarea existente.
 - **Eliminar tareas**: Elimina tareas de la lista.
-- **Marcar tareas como completadas**: Marca las tareas como completadas y cambia el estilo del texto para indicar su estado.
-- **Modo Noche**: Alterna entre un modo claro y oscuro, guardando la preferencia del usuario en el navegador.
+- **Marcar tareas como completadas**: Marca las tareas como completadas y cambia el estilo del texto para indicar su estado
 
 ## Tecnologías Utilizadas
 
