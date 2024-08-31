@@ -5,7 +5,7 @@ export function LandingPage() {
     $container.classList.add("w-full", "mx-auto", "p-4", "bg-white", "rounded-md", "shadow-md");
   
     $container.innerHTML = `
-      <h1 class="text-4xl font-bold text-teal-600">Gestión de Tareas</h1>
+   <h1 class="text-4xl font-bold text-teal-600 text-center mb-8">Gestión de Tareas</h1>
       <form id="task-form" class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto space-y-4">
         <div class="space-y-2">
           <label for="title" class="block text-gray-700 text-lg font-medium">Título de la tarea</label>
