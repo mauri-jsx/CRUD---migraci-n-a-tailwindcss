@@ -5,34 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Tareas</title>
+    <link rel="stylesheet" href="/src/style.css">
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
-    <div class="container mx-auto p-8 max-w-4xl">
-        <h1 class="text-4xl font-bold mb-4 text-center text-teal-600">Gestión de Tareas</h1>
-
-        <!-- Formulario compacto para añadir tareas -->
-        <form id="task-form" class="bg-white p-6 rounded-lg shadow-lg max-w-lg mx-auto space-y-4">
-            <div class="space-y-2">
-                <label for="title" class="block text-gray-700 text-lg font-medium">Título de la tarea</label>
-                <input type="text" id="title" placeholder="Título de la tarea" class="border border-gray-300 p-3 w-full rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-150 ease-in-out" required>
-            </div>
-            <div class="space-y-2">
-                <label for="description" class="block text-gray-700 text-lg font-medium">Descripción</label>
-                <textarea id="description" placeholder="Descripción" class="border border-gray-300 p-3 w-full rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-150 ease-in-out"></textarea>
-            </div>
-            <div class="flex items-center mb-4">
-                <input type="checkbox" id="isComplete" class="h-5 w-5 text-teal-600 focus:ring-teal-500 border-gray-300 rounded">
-                <label for="isComplete" class="ml-2 text-gray-700 text-lg">Tarea completada</label>
-            </div>
-            <button type="submit" class="bg-teal-600 text-white px-4 py-2 rounded-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 transition duration-150 ease-in-out w-full">Agregar Tarea</button>
-        </form>
-        
-        <!-- Lista de tareas -->
-        <ul id="task-list" class="mt-8 space-y-4 max-w-2xl mx-auto">
-            <!-- Las tareas se generarán dinámicamente aquí -->
-        </ul>
+    <div id="app" class="container mx-auto p-8 max-w-4xl">
+        <!-- El contenido se cargará aquí a través de JavaScript -->
     </div>
 
-    <script type="module" src="./src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>

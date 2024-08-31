@@ -1,35 +1,71 @@
-import "./style.css";
 import Swal from 'sweetalert2';
+import { LandingPage } from './pages/LandingPage.js';
+import { LoginPage } from './pages/LoginPage.js';
+import { Header } from './components/Header.js';
 
-// Función para cargar las tareas desde el servidor
-document.addEventListener('DOMContentLoaded', loadTasks);
+function renderPage(page) {
+    const app = document.getElementById('app');
+    app.innerHTML = ''; 
+    app.appendChild(Header()); 
 
-document.getElementById('task-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
+    switch (page) {
+        case '/login':
+            app.appendChild(LoginPage());
+            break;
+        case '/':
+            app.appendChild(LandingPage());
+            break;
+        default:
+            app.innerHTML = '<h1>404 - Página no encontrada</h1>';
+    }
 
-    const title = document.getElementById('title').value;
-    const description = document.getElementById('description').value;
-    const isComplete = document.getElementById('isComplete').checked;
+    if (page === '/') {
+        setupTaskHandlers();
+        loadTasks();
+    }
+}
 
-    // Crear una nueva tarea
-    await fetch("http://localhost:4000/tasks", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ title, description, isComplete })
-    });
+export function navigateTo(pathname) {
+    history.pushState({}, pathname, window.location.origin + pathname);
+    renderPage(pathname);
+}
 
-    document.getElementById('task-form').reset();
-    loadTasks();
-
-    Swal.fire({
-        icon: 'success',
-        title: 'Tarea agregada',
-        showConfirmButton: false,
-        timer: 1500
-    });
+document.addEventListener('DOMContentLoaded', () => {
+    renderPage(window.location.pathname);
 });
+
+window.addEventListener('popstate', () => {
+    renderPage(window.location.pathname);
+});
+
+function setupTaskHandlers() {
+    document.getElementById('task-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const isComplete = document.getElementById('isComplete').checked;
+
+        // Crear una nueva tarea
+        await fetch("http://localhost:4000/tasks", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, description, isComplete })
+        });
+
+        document.getElementById('task-form').reset();
+        loadTasks();
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Tarea agregada',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    });
+}
 
 async function loadTasks() {
     try {
@@ -62,17 +98,6 @@ async function loadTasks() {
         console.error('Error cargando las tareas:', error);
     }
 }
-
-window.toggleComplete = async function(id, newStatus) {
-    await fetch(`http://localhost:4000/task/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ isComplete: newStatus })
-    });
-    loadTasks();
-};
 
 window.updateTask = async function(id, currentTitle, currentDescription, currentIsComplete) {
     const { value: formValues } = await Swal.fire({
